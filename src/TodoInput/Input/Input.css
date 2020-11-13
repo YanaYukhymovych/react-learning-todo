@@ -1,0 +1,28 @@
+.Input {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.Input label {
+  margin-left: 15px;
+  cursor: pointer;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+
+.Input input {
+  display: flex;
+  width: 100%;
+  border: 2px solid #03c6fc;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.Input input:focus {
+  border: 2px solid #1139d9;
+}

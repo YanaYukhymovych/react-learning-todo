@@ -1,0 +1,41 @@
+.Button {
+  display: block;
+  border-radius: 5px;
+  border: none;
+  background-color:  #1139d9;
+  color: #fff;
+  padding: 3px 30px;
+  margin-top: auto;
+  box-sizing: border-box;
+  margin-left: 5px;
+  cursor: pointer;
+  min-width: 100px;
+  outline: none;
+}
+
+.Button:disabled {
+  background-color:  #b2b8c2;
+  color: #fff;
+}
+
+.primary {
+  background-color:  #1139d9;
+  color: #fff;
+}
+
+.secondary {
+  background-color:#6f85a8;
+  color: #fff;
+}
+
+.deleteAll {
+  background-color:#ed6161;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.doneAll {
+  background-color:#57d478;
+  color: #fff;
+  margin-bottom: 6px;
+}

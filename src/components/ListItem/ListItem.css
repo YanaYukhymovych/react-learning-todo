@@ -1,0 +1,24 @@
+.ListItem {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  background: #ebf595;
+  margin: 25px;
+  cursor: pointer;
+}
+
+.ListItem:hover {
+  box-shadow: 10px 10px 0 0  #ebf595,
+  10px -10px 0 0  #ebf595,
+  -10px 10px 0 0  #ebf595,
+  -10px -10px 0 0#ebf595;
+  transition: all 0.2s;
+}
+
+.ListItem h3 {
+  font-weight: bold;
+  font-size: 24px;
+}

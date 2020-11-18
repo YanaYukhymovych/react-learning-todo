@@ -10,7 +10,7 @@ const Button = props => {
             className={cls.join(' ')} // обьединяем класс Button с другими
             onClick={props.onClick}
             disabled={props.disabled}>
-      {props.title || 'OK'}
+      {props.title || props.children || 'OK'}
     </button>
   )
 }

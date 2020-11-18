@@ -1,0 +1,56 @@
+.MainPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #D9AFD9;
+  background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.MainPage h1 {
+  text-align: center;
+}
+
+.MainPage div {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.MainPage ul {
+  display: flex;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.AddList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  background: rgba(242, 242, 242, 0.5);
+  margin: 25px;
+  border: 2px dashed rgba(242, 242, 242);
+  box-sizing: border-box;
+  cursor: pointer;
+
+}
+
+.AddList:hover {
+  box-shadow: 10px 10px 0 0   rgba(242, 242, 242, 0.5),
+  10px -10px 0 0   rgba(242, 242, 242, 0.5),
+  -10px 10px 0 0   rgba(242, 242, 242, 0.5),
+  -10px -10px 0 0 rgba(242, 242, 242, 0.5);
+  transition: all 0.2s;
+}
+
+.AddIcon {
+  color:  rgba(74, 74, 74, 0.7);
+}

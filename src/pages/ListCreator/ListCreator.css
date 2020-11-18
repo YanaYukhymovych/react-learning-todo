@@ -1,4 +1,4 @@
-.Layout {
+.ListCreator {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.Layout div {
+.ListCreator div {
     display: flex;
     justify-content: center;
    box-sizing: border-box;

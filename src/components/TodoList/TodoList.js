@@ -7,7 +7,6 @@ export default class TodoList extends Component {
     return (
       <div className="TodoList">
         <div>
-           <h1>Todolist for a week</h1>
 
           {!!this.props.list.length && <Button type="deleteAll"
                   onClick={this.props.onDeleteAll}

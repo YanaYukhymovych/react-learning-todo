@@ -1,0 +1,41 @@
+
+.ListTitle {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+
+  input {
+    background: transparent;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #8c918d;
+    font-size: 24px;
+    color: black;
+    padding: 0 25px;
+    width: 250px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  div {
+    position: relative;
+    font-size: 24px;
+
+    svg {
+      display: none;
+      position: absolute;
+      right: -30px;
+      bottom: 5px;
+    }
+
+    &:hover {
+      svg {
+        display: initial;
+      }
+    }
+  }
+
+}
+

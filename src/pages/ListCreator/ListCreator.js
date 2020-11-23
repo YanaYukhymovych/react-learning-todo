@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import './ListCreator.css'
+import React, { useState } from 'react'
+import './ListCreator.scss'
 import TodoList from '../../components/TodoList/TodoList'
-import Input from '../../components/TodoInput/Input'
+import TodoInput from '../../components/TodoInput/TodoInput'
 import Button from '../../components/Button/Button'
 import Modal from '../../components/Modal/Modal'
 import { Link } from 'react-router-dom'
@@ -9,164 +9,140 @@ import ListTitle from '../../components/ListTitle/ListTitle'
 import axios from 'axios'
 
 
-class ListCreator extends Component {
-  state = {
-    inputValue: '',
-    todoList: {  
-      title: '', //string
-      todo: [
-        
-      ]
-    }, // [{ text: string, done: boolean }]
-    isModalShow: false,
+const ListCreator = () => {
+
+  // использование функционального компонента через useState (hook)
+
+  const [inputValue, setInputValue] = useState('');
+  const [todoList, setTodoList] = useState({
+    title: '', //string
+    todo: [] // { text: string, done: boolean }
+  });
+  const [isModalShow, setIsModalShow] = useState(false);
+
+
+
+  const createItemHandler = event => {
+    setInputValue(event.target.value)
+  }
+
+  const addItemHandler = () => {
+    const todoListCopy = { ...todoList }
+    todoListCopy.todo.push({ id: todoList.todo.length + 1, text: inputValue, done: false })
+
+    setTodoList(todoListCopy);
+    setInputValue('');
+
+    // альтернативній вариант
+    // this.setState((state) => 
+    // ({todoList: [...state.todoList, state.inputValue],
+    //   inputValue: '' }))
+  }
+
+  const keyDownHandler = (event) => {
+    if (event.key === 'Enter') {
+      addItemHandler()
+    }
   }
 
 
-  createItemHandler = event => {
-    this.setState({ inputValue: event.target.value })
+  const deleteItemHandler = index => {
+    const todoListCopy = { ...todoList }
+    todoListCopy.todo.splice(index, 1)
+
+    setTodoList(todoListCopy)
   }
 
-  addItemHandler = () => {
-    const todoList = {...this.state.todoList}
-    todoList.todo.push({ id: this.state.todoList.todo.length + 1, text: this.state.inputValue, done: false })
+  const checkItemHandler = (index) => {
+    const todoListCopy = { ...todoList }
+    todoListCopy.todo[index].done = !todoListCopy.todo[index].done
 
-    this.setState({
-      todoList,
-      inputValue: '' })
-
-      // альтернативній вариант
-      // this.setState((state) => 
-      // ({todoList: [...state.todoList, state.inputValue],
-      //   inputValue: '' }))
+    setTodoList(todoListCopy)
   }
 
-  emptyItemHandler = () => {
-      this.setState({
-        inputValue: ''
-      })
+  const toggleModalHandler = () => {
+    setIsModalShow(!isModalShow)
   }
 
-  deleteItemHandler = index => {
-    const todoList = {...this.state.todoList}
-    todoList.todo.splice(index, 1)
-
-    this.setState({
-      todoList
-    })
-  }
-
-  checkItemHandler = (index) => {
-    const todoList = {...this.state.todoList}
-    todoList.todo[index].done = true
-
-    this.setState({
-      todoList
-    })
-  }
-
-  toggleModalHandler = () => {
-    this.setState (state => ({
-      isModalShow: !state.isModalShow
-    })
-    )
-  }
-
-  deleteAllHandler = () => {
-    const todoList = { ...this.state.todoList }
-    todoList.todo = []
-
-    this.setState({
-      todoList,
-      isModalShow: false
-    })
-
+  const deleteAllHandler = () => {
+    setTodoList(prevTodoList => ({ ...prevTodoList, todo: [] }));
+    setIsModalShow(false)
   }
 
   //перебирираем массив списка
   //  аргументом map являются каждый элемент масива который мы перебираем
   // после разворачиваем (делаем копию) изменяемого элемента и прсваиваем нвое значение
-  doneAllHandler = () => {
-    const todoList = { ...this.state.todoList }
-    todoList.todo = todoList.todo.map(listItem => ({ ...listItem, done: true }));
-    this.setState({ todoList });
+  const doneAllHandler = () => {
+    const todoListCopy = { ...todoList }
+    todoListCopy.todo.forEach(listItem => (listItem.done = true));
+    console.log(todoListCopy)
+
+    setTodoList(todoListCopy)
+  }
+ 
+
+
+  const changeTitleHandler = event => {
+    setTodoList(prevTodoList => ({ ...prevTodoList, title: event.target.value }))
   }
 
+  const saveListHandler = async event => {
 
-  changeTitleHandler = event => {
-    const todoListCopy = { ...this.state.todoList };
-
-    todoListCopy.title = event.target.value;
-
-    this.setState({ todoList: todoListCopy })
-  }
-
-  saveListHandler = async event => {
-
-    console.log(this.state.todoList)
-    
-      try { 
-        await axios.post('https://todo-1239d.firebaseio.com/todo.json', this.state.todoList)
-      } catch (e) {
-        console.log(e)
-      }
+    try {
+      await axios.post('https://todo-1239d.firebaseio.com/todo.json', todoList)
+    } catch (e) {
+      console.log(e)
     }
-  
+  }
 
-  render() {
-    
+  return (
+    <div className="ListCreator">
 
-    return (
-      <div className="ListCreator">
-
-        <Link style={{textDecoration: 'none'}} 
-              to={{pathname: "/",
-              search: "?main=menu"}}>
-            <Button   type="forward"
-                      title={'Back to menu'} />
+      <div className="navigation">
+        <Link style={{ textDecoration: 'none' }}
+          to={{
+            pathname: "/",
+          }}>
+          <Button type="forward"
+            title={'Back to menu'} />
         </Link>
 
-        <ListTitle onChange={this.changeTitleHandler}
-                   value={this.state.todoList.title}
-        />
-
-        {this.state.isModalShow && <Modal onDelete={this.deleteAllHandler}
-                                          onCancel={this.toggleModalHandler} 
-              />}
-
-        <TodoList list={this.state.todoList.todo} // єтот лист мі и передает в TodoList для map
-                  onDelete={this.deleteItemHandler}
-                  onDone={this.checkItemHandler}
-                  onDeleteAll={this.toggleModalHandler}
-                  onDoneAll={this.doneAllHandler} />
-
-        <div>
-          <Input onChange={this.createItemHandler} 
-                 value={this.state.inputValue} />
-
-          <Button type="primary"
-                  onClick={this.addItemHandler}
-                  disabled={this.state.inputValue.length === 0}
-                  title={'Add +'} />
-
-          <Button type="secondary"
-                  onClick={this.emptyItemHandler}
-                  disabled={this.state.inputValue.length === 0}
-                  title={'Empty'} />  
-
-          
-        </div>
-
         <Button type="forward"
-                onClick={this.saveListHandler}
-                disabled={this.state.todoList.length === 0}
-                title={'Save to my lists'}
+          onClick={saveListHandler}
+          disabled={todoList.length === 0}
+          title={'Save to my lists'}
         />
-        
-      </div>
-    )
-  }
-}
 
+      </div>
+
+      
+        <ListTitle onChange={changeTitleHandler}
+                   value={todoList.title}
+        /> 
+      
+
+      <div>
+        <TodoInput onChange={createItemHandler}
+                   value={inputValue}
+                   onKeyDown={keyDownHandler}
+                   onClick={addItemHandler}
+                   />
+
+      </div>
+
+      {isModalShow && <Modal onDelete={deleteAllHandler}
+        onCancel={toggleModalHandler}
+      />}
+
+      <TodoList list={todoList.todo} // єтот лист мі и передает в TodoList для map
+        onDelete={deleteItemHandler}
+        onDone={checkItemHandler}
+        onDeleteAll={toggleModalHandler}
+        onDoneAll={doneAllHandler} />
+
+    </div>
+  )
+}
 
 
 export default ListCreator

@@ -1,75 +1,87 @@
-import React, { Component } from 'react'
-import './MainPage.css'
+import React, { useState, useEffect } from 'react'
+import './MainPage.scss'
 import ListItem from '../../components/ListItem/ListItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
-export default class MainPage extends Component {
-  state = {
-    todoLists: [
-      {
+
+const MainPage = () => {
+
+  // написание функционального компонента с применением hooks
+
+  const [todoLists, setTodoLists] = useState([
+    {
       title: '', //string
       todo: []
     }
-    ]
+  ]);
+
+  const deleteListHandler = (index) => {
+    const todoListsCopy = [...todoLists]
+    todoListsCopy.splice(index, 1)
+
+    setTodoLists(todoListsCopy)
   }
 
-  deleteListHandler = (index) => {
-    const todoLists = [...this.state.todoLists]
-    todoLists.splice(index, 1)
+  // альтернативніе примері использования хука useEffect
 
-    this.setState ({
-      todoLists
-    })
-  }
+  // 1. С асинхонной функцией внутри
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await axios.get(`https://todo-1239d.firebaseio.com/todo.json`);
+  //     const todo = response.data
 
-  async componentDidMount() {
+  //     setTodoLists(Object.values(todo));
+  //   })();
+  // }, []);
 
-    const response = await axios.get(`https://todo-1239d.firebaseio.com/todo.json`)
-    const todo = response.data
-
-    this.setState ({
-        todoLists: Object.values(todo)
-    })
-   }
-
-   
+  // 2. С обычной функцией
   
-  
+  useEffect(() => {
+    axios.get(`https://todo-1239d.firebaseio.com/todo.json`).then(response => setTodoLists(Object.values(response.data)));
+  }, []);
 
-  render() {
+  return (
+    <div className="MainPage">
+        
+      <h1>
+        <FontAwesomeIcon icon={faCheckCircle} />
+        My Todo lists
+      </h1>
+      
 
-    return (
-      <div className="MainPage">
-        <h1>My Todo lists</h1>
-        <div>
-            <ul>
-              <Link to={{pathname: "/listcreator/new",
-                        search: "?create=new=list"
-                        }}>
-                <li className="AddList">
-                  <FontAwesomeIcon className="AddIcon" icon={faPlus} size="3x" />
-                </li>
+      <div>
+        <ul>
+          <Link to={{
+            pathname: "/listcreator/new",
+            search: "?create=new=list"
+          }}>
+            <li className="AddList">
+              <FontAwesomeIcon className="AddIcon" icon={faPlus} size="3x" />
+            </li>
+          </Link>
+
+          {todoLists.map((listItem, index) => {
+            return (
+              <Link to={`/listcreator/${listItem.id}`}
+                key={index}
+
+              >
+                <ListItem
+                  title={listItem.title}
+                  onDelete={() => deleteListHandler(index)}
+                />
               </Link>
-
-              {this.state.todoLists.map((listItem, index) => {
-                return (
-                  <Link to={`/listcreator/${listItem.id}`}
-                  key={index}
-
-                  >
-                    <ListItem 
-                              title={listItem.title}
-                              onDelete={() => this.deleteListHandler(index)}
-                    />
-                  </Link>
-                )
-              })}
-            </ul>
-        </div>
+            )
+          })}
+        </ul>
       </div>
-    )
-  }
+    </div>
+  )
+
 }
+
+export default MainPage;

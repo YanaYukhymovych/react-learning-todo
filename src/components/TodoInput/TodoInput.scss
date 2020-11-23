@@ -1,0 +1,49 @@
+.TodoInput {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+
+
+  label {
+    margin-left: 15px;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Nunito', sans-serif;;
+  }
+
+  input {
+    position: relative;
+    display: flex;
+    width: 100%;
+    background: #FBFBFB;
+    border: 1px solid #D6E4EC;
+    border-radius: 5px;
+    outline: none;
+    min-height: 28px;
+    padding: 2px 10px;
+
+    &:hover {
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    &:focus {
+      box-shadow: 0px 0px 1px rgba(117, 131, 142, 0.04),
+                  0px 2px 4px rgba(52, 60, 68, 0.16);
+      border-bottom: 2.03614px solid #7480FF;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    
+  }
+}

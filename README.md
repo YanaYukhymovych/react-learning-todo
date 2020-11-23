@@ -1,3 +1,37 @@
+# TodoList
+
+This project was created to demonstrate skills in ReactJs and its synchronization with an open database of Firebase. The essence of the project is the creation, editing and storage of to-do lists.
+
+### Tech
+
+TodoList uses a number of open source projects to work properly:
+
+* [ReactJS] - HTML enhanced for web apps!
+* [node.js] - evented I/O for the backend
+
+And of course Dillinger itself is open source with a [public repository][https://github.com/YanaYukhymovych/react-learning-todo]
+ on GitHub.
+
+### Installation
+
+TodoList requires [Node.js](https://nodejs.org/) v4+ to run.
+
+Install the dependencies and devDependencies and start the server.
+
+### Plugins
+
+TodoList is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
+
+| GitHub | [plugins/github/README.md][PlGh] |
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

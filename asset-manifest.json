@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/react-learning-todo/static/css/main.1738b18d.chunk.css",
+    "main.js": "/react-learning-todo/static/js/main.6608a8eb.chunk.js",
+    "main.js.map": "/react-learning-todo/static/js/main.6608a8eb.chunk.js.map",
+    "runtime-main.js": "/react-learning-todo/static/js/runtime-main.a8be13ff.js",
+    "runtime-main.js.map": "/react-learning-todo/static/js/runtime-main.a8be13ff.js.map",
+    "static/js/2.2e64eb87.chunk.js": "/react-learning-todo/static/js/2.2e64eb87.chunk.js",
+    "static/js/2.2e64eb87.chunk.js.map": "/react-learning-todo/static/js/2.2e64eb87.chunk.js.map",
+    "index.html": "/react-learning-todo/index.html",
+    "static/css/main.1738b18d.chunk.css.map": "/react-learning-todo/static/css/main.1738b18d.chunk.css.map",
+    "static/js/2.2e64eb87.chunk.js.LICENSE.txt": "/react-learning-todo/static/js/2.2e64eb87.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a8be13ff.js",
+    "static/js/2.2e64eb87.chunk.js",
+    "static/css/main.1738b18d.chunk.css",
+    "static/js/main.6608a8eb.chunk.js"
+  ]
+}
